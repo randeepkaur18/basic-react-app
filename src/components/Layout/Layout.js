@@ -7,7 +7,7 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     }
 
     sideDrawerClosedhandler = () => {
@@ -16,14 +16,22 @@ class Layout extends Component {
         })
     }
 
+    toggleMenuHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showSideDrawer: !prevState.showSideDrawer
+            };
+        });
+    }
+
     render() {
         return (
             <Aux>
-                <Toolbar />
+                <Toolbar toggle={this.toggleMenuHandler} />
                 <SideDrawer
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedhandler} />
-                <main className={classes.Content}><BurgerBuilder /></main>
+                <main className={classes.Content}></main>
             </Aux>
         );
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '../../../UI/Button/Button';
+import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
     componentDidUpdate() {

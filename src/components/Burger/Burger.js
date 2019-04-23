@@ -20,10 +20,6 @@ const burger = (props) => {
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top" />
             {updatedIngredients}
-            {/*<BurgerIngredient type="salad" />
-            <BurgerIngredient type="cheese" />
-            <BurgerIngredient type="bacon" />
-            <BurgerIngredient type="meat" />*/}
             <BurgerIngredient type="bread-bottom" />
         </div>
     );

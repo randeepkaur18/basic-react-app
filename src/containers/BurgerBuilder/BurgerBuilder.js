@@ -10,24 +10,15 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import * as actions from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
     state = {
-        purchasing: false,
-        loading: false,
-        error: false
+        purchasing: false
     }
 
     componentDidMount() {
-        // axios.get('/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data })
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         this.setState({ error: true })
-        //     })
+        this.props.onInitIngredients();
     }
 
     updatePurchasableState = (updatedIngredients) => {
@@ -47,6 +38,7 @@ class BurgerBuilder extends Component {
     }
 
     continuePurchaseHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
 
@@ -57,7 +49,7 @@ class BurgerBuilder extends Component {
         }
 
         let ordersummary = null;
-        let burger = this.state.error ? <p>Sorry! Ingredients are not loaded.</p> : <Spinner />;
+        let burger = this.props.error ? <p>Sorry! Ingredients are not loaded.</p> : <Spinner />;
         if (this.props.ingredients) {
             burger = (
                 <React.Fragment>
@@ -77,9 +69,11 @@ class BurgerBuilder extends Component {
                 ingredients={this.props.ingredients}
                 price={this.props.totalPrice} />
         }
-        if (this.state.loading) {
-            ordersummary = <Spinner />
-        }
+        // We don't need it any more, bcz we are not handling it async
+        //
+        // if (this.state.loading) {
+        //     ordersummary = <Spinner />
+        // }
 
         return (
             <React.Fragment>
@@ -95,21 +89,18 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        ingredients: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIngredient: (ingName) => dispatch({
-            type: actionTypes.ADD_INGREDIENT,
-            ingName: ingName
-        }),
-        onRemoveIngredient: (ingName) => dispatch({
-            type: actionTypes.REMOVE_INGREDIENT,
-            ingName: ingName
-        })
+        onAddIngredient: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onRemoveIngredient: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 }
 

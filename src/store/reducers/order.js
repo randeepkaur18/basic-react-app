@@ -5,7 +5,6 @@ const initialState = {
     orders: [],
     loading: false,
     purchased: false,
-    orders: []
 }
 
 const purchaseBurgerSuccess = (state, action) => {

@@ -21,18 +21,20 @@ const rootReducer = combineReducers({
 });
 
 // creating a middleware
-const logger = store => {
-  return next => {
-    return action => {
-      console.log("[Logger Middleware] dispatching", action);
-      const result = next(action);
-      // this will now let the action continueto the reducer,
-      // we need to pass action as an argument
-      console.log("[Logger Middleware] next state", store.getState());
-      return result;
+/*
+  const logger = store => {
+    return next => {
+      return action => {
+        console.log("[Logger Middleware] dispatching", action);
+        const result = next(action);
+        // this will now let the action continueto the reducer,
+        // we need to pass action as an argument
+        console.log("[Logger Middleware] next state", store.getState());
+        return result;
+      };
     };
   };
-};
+*/
 
 /*
   So the above function tree for creating middleware is in the end what gets executed,

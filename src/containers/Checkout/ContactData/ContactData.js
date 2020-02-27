@@ -107,7 +107,7 @@ class ContactData extends Component {
   orderHandler = event => {
     event.preventDefault();
     this.setState({ loading: true });
-    let customer = {};
+    const customer = {};
     for (let element in this.state.orderForm) {
       customer[element] = this.state.orderForm[element].value;
     }
@@ -115,7 +115,8 @@ class ContactData extends Component {
     let orderData = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
-      customer
+      customer,
+      userId: this.props.userId
     };
     this.props.onOrderBurger(orderData, this.props.token);
   };
@@ -188,7 +189,8 @@ const mapStateToProps = state => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   };
 };
 

@@ -1,3 +1,10 @@
 .LayoutContent {
-    margin-top: 72px;
+  margin-top: 72px;
 }
+
+/* @media (max-width: 600px) {
+  .Content {
+    width: 560px;
+    height: 100vh;
+  }
+} */
